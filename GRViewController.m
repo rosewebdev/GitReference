@@ -34,14 +34,31 @@ static NSString * const Reference = @"reference";
     title.text = @"GitReference";
     [scrollView addSubview:title];
     
+    CGFloat top = topMargin + labelHeight + margin * 2;
     
+    for (NSDictionary *gitCommand in [self gitCommands]) {
+        NSString *command = gitCommand[Command];
+        NSString *reference = gitCommand[Reference];
+        
+        UILabel *gitCommand = [[UILabel alloc]initWithFrame:CGRectMake(margin, top, widthMinusMargin, labelHeight)];
+        gitCommand.font = [UIFont boldSystemFontOfSize:18];
+        gitCommand.text = command;
+        [scrollView addSubview:gitCommand];
+        
+        top += (labelHeight + margin);
+        CGFloat referenceHeight = topMargin + 2;
+        
+        UILabel *gitReference = [[UILabel alloc]initWithFrame:CGRectMake(margin, top, widthMinusMargin, referenceHeight)];
+        gitReference.font = [UIFont systemFontOfSize:15];
+        gitReference.text = reference;
+        [scrollView addSubview:gitReference];
+        
+        top += (referenceHeight + margin * 2);
+    }
     
-    
-    
-    
-    
-    
-    
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width, top);
+}
+
     - (NSArray *)gitCommands {
         return @[@{Command: @"git status", Reference: @": shows changed files"},
                  @{Command: @"git diff", Reference: @": shows actual changes"},
@@ -62,9 +79,6 @@ static NSString * const Reference = @"reference";
         return bounding.size.height;
         
     }
-
-    
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
