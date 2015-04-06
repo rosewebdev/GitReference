@@ -8,6 +8,9 @@
 
 #import "GRViewController.h"
 
+CGFloat margin = 15;
+CGFloat labelHeight = 20;
+
 @interface GRViewController ()
 
 @end
@@ -20,6 +23,15 @@
     
     UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:scrollView];
+    
+    CGFloat topMargin = 20;
+    CGFloat widthMinusMargin = self.view.frame.size.width - 2 * margin;
+    
+    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(margin, topMargin, widthMinusMargin, labelHeight)];
+    title.font = [UIFont boldSystemFontOfSize:20];
+    title.text = @"GitReference";
+    [scrollView addSubview:title];
+    
 }
 
 - (void)didReceiveMemoryWarning {
